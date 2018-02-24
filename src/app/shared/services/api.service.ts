@@ -26,9 +26,6 @@ export class ApiService {
         params: params
       })
       .catch(this.formatErrors);
-      // .map((res: HttpResponse<any>) => {
-      //   console.log(res);
-      // });
   }
 
   put(path: string, data: Object = {}): Observable<any> {
@@ -37,9 +34,6 @@ export class ApiService {
         headers: this.setHeaders()
       })
       .catch(this.formatErrors);
-      // .map((res: HttpResponse<any>) => {
-      //   console.log(res);
-      // });
   }
 
   patch(path: string, data: Object = {}): Observable<any> {
@@ -48,9 +42,6 @@ export class ApiService {
         headers: this.setHeaders()
       })
       .catch(this.formatErrors);
-      // .map((res: HttpResponse<any>) => {
-      //   console.log(res);
-      // });
   }
 
   post(path: string, data: Object = {}): Observable<any> {
@@ -59,9 +50,6 @@ export class ApiService {
         headers: this.setHeaders()
       })
       .catch(this.formatErrors);
-      // .map((res: HttpResponse<any>) => {
-      //   console.log(res);
-      // });
   }
 
   remove(path): Observable<any> {
@@ -70,9 +58,6 @@ export class ApiService {
         headers: this.setHeaders()
       })
       .catch(this.formatErrors);
-      // .map((res: HttpResponse<any>) => {
-      //   console.log(res);
-      // });
   }
 
 
@@ -82,9 +67,6 @@ export class ApiService {
       'Accept': 'application/json'
     };
 
-    if (this.jwtService.getToken()) {
-      headersConfig['Authorization'] = `Token ${this.jwtService.getToken()}`;
-    }
     return new HttpHeaders(headersConfig);
   }
 

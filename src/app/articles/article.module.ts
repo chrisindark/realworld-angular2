@@ -8,7 +8,7 @@ import { ArticleCommentComponent } from './article-comment.component';
 import { ArticleListComponent } from './article-list.component';
 import { ArticlePreviewComponent } from './article-preview.component';
 import { ArticleResolver } from './article-resolver.service';
-// import { MarkdownPipe } from './markdown.pipe';
+import { ArticleMetaComponent } from './article-meta.component';
 import { ARTICLE_ROUTES } from './article.routes';
 
 
@@ -23,14 +23,17 @@ import { ARTICLE_ROUTES } from './article.routes';
     ArticleCommentComponent,
     ArticleListComponent,
     ArticlePreviewComponent,
-    // MarkdownPipe.
+    ArticleMetaComponent,
   ],
-  providers: [ArticleResolver],
+  providers: [
+    ArticleResolver
+  ],
   exports: [
     ArticleComponent,
     ArticleCommentComponent,
     ArticleListComponent,
     ArticlePreviewComponent,
+    ArticleMetaComponent,
   ]
 })
 

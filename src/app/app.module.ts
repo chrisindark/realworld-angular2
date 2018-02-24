@@ -1,26 +1,21 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthModule } from './auth/auth.module';
-import { HomeModule } from './home/home.module';
-import { ProfileModule } from './profile/profile.module';
-import { ArticleModule } from './articles/article.module';
-// import { EditorModule } from './editor/editor.module';
-// import { SettingsModule } from './settings/settings.module';
+import { TokenInterceptor } from './app.http-interceptor';
 
-import {
-  SharedModule,
-//   ArticlesService, AuthGuard,
-//   CommentsService, FooterComponent, HeaderComponent,
-//   JwtService, ProfilesService,
-//   TagsService, UserService
-} from './shared';
+import { SharedModule } from './shared';
 import { CoreModule } from './core';
+
+import { AuthModule } from './auth';
+import { HomeModule } from './home';
+import { ProfileModule } from './profile';
+import { ArticleModule } from './articles';
+import { SettingsModule } from './settings';
+import { EditorModule } from './editor';
 
 
 @NgModule({
@@ -34,23 +29,18 @@ import { CoreModule } from './core';
     HomeModule,
     ProfileModule,
     ArticleModule,
-    // SettingsModule,
-    // EditorModule,
+    SettingsModule,
+    EditorModule,
   ],
   declarations: [
     AppComponent,
-    // FooterComponent,
-    // HeaderComponent
   ],
   providers: [
-    // ApiService,
-    // UserService
-    // ArticlesService,
-    // AuthGuard,
-    // CommentsService,
-    // JwtService,
-    // ProfilesService,
-    // TagsService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

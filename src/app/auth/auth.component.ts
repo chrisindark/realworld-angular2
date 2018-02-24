@@ -52,9 +52,6 @@ export class AuthComponent implements OnInit, OnDestroy {
     // this.errors = new Errors();
 
     const credentials = this.authForm.value;
-    // setTimeout(() => {
-    //   this.isSubmitting = false;
-    // }, 100);
 
     this.userService
       .attemptAuth(this.authType, credentials)
@@ -64,7 +61,6 @@ export class AuthComponent implements OnInit, OnDestroy {
           this.router.navigateByUrl('/');
         }, error => {
           this.errors = error.error;
-          console.log(this.errors);
           this.isSubmitting = false;
         });
   }

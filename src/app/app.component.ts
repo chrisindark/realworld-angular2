@@ -14,7 +14,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit() {
     // This runs once on application startup.

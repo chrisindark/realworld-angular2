@@ -21,9 +21,16 @@ const routes: Routes = [
     loadChildren: 'app/profile/profile.module#ProfileModule'
   },
   {
-    path: 'article',
+    path: '',
     loadChildren: 'app/articles/article.module#ArticleModule'
   },
+  {
+    path: 'settings',
+    loadChildren: 'app/settings/settings.module#SettingsModule'
+  },
+  {
+    path: '**', redirectTo: 'home'
+  }
 ];
 
 @NgModule({

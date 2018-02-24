@@ -36,6 +36,7 @@ export class ArticleComponent implements OnInit {
     // Retreive the prefetched article
     this.route.data.subscribe(
       (data: { article: Article }) => {
+        // console.log(data);
         this.article = data.article;
 
         // Load the comments on this article
@@ -47,7 +48,6 @@ export class ArticleComponent implements OnInit {
     this.userService.currentUser
       .subscribe((userData: User) => {
         this.currentUser = userData;
-
         this.canModify = (this.currentUser.username === this.article.author.username);
       });
   }

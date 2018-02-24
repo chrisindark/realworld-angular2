@@ -1,29 +1,21 @@
 <app-article-preview
-  *ngFor="let article of results"
+  *ngFor="let article of articleObjects"
   [article]="article">
 </app-article-preview>
 
-<div class="article-preview"
-     [hidden]="!loading">
-  Loading articles...
+<div class="article-preview" *ngIf="loading">
+  <div class="panel panel-default">
+    <div class="panel-body">Loading articles...</div>
+  </div>
 </div>
 
 <div class="article-preview"
-     [hidden]="loading || results.length">
-  No articles are here... yet.
+     *ngIf="!loading && articleObjects.length === 0">
+  <div class="panel panel-default">
+    <div class="panel-body">No articles are here... yet.</div>
+  </div>
 </div>
 
-<nav [hidden]="loading || totalPages <= 1">
-  <ul class="pagination">
-
-    <li class="page-item"
-        [ngClass]="{'active': pageNumber === currentPage}"
-        *ngFor="let pageNumber of totalPages"
-        (click)="setPageTo(pageNumber)">
-
-      <a class="page-link" href="#">{{ pageNumber }}</a>
-
-    </li>
-
-  </ul>
-</nav>
+<app-pagination [totalCount]="totalCount" [currentPage]="currentPage"
+                [maxVisible]="maxVisible" (pageSelected)="setPageTo($event)"
+                [limit]="limit"></app-pagination>

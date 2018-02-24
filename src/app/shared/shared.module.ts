@@ -5,13 +5,21 @@ import { RouterModule } from '@angular/router';
 
 import { HeaderComponent, FooterComponent } from './layout';
 import {
-  ApiService, UserService, JwtService, ProfileService,
-  TagsService, ArticleService, ArticleCommentService,
-  AuthGuard, NoAuthGuard
+  ApiService,
+  UserService,
+  JwtService,
+  ProfileService,
+  TagsService,
+  ArticleService,
+  ArticleCommentService,
+  AuthGuard,
+  NoAuthGuard
 } from './services';
 import { FavoriteButtonComponent, FollowButtonComponent } from './buttons';
 import { ListErrorsComponent } from './list-errors.component';
 import { ShowAuthedDirective } from './directives';
+import { PaginationComponent } from './layout/pagination/pagination.component';
+import { MarkdownPipe } from './pipes/markdown.pipe';
 
 
 @NgModule({
@@ -28,6 +36,8 @@ import { ShowAuthedDirective } from './directives';
     ShowAuthedDirective,
     FavoriteButtonComponent,
     FollowButtonComponent,
+    PaginationComponent,
+    MarkdownPipe,
   ],
   exports: [
     CommonModule,
@@ -40,6 +50,8 @@ import { ShowAuthedDirective } from './directives';
     ShowAuthedDirective,
     FavoriteButtonComponent,
     FollowButtonComponent,
+    PaginationComponent,
+    MarkdownPipe,
   ]
 })
 
@@ -48,16 +60,15 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
-        ApiService, UserService,
-        JwtService, ProfileService,
-        TagsService, ArticleService,
+        ApiService,
+        UserService,
+        JwtService,
+        ProfileService,
+        TagsService,
+        ArticleService,
         ArticleCommentService,
-        AuthGuard, NoAuthGuard
-        // {
-        //   provide: HTTP_INTERCEPTORS,
-        //   useCLass: ,
-        //   multi: true
-        // }
+        AuthGuard,
+        NoAuthGuard
       ]
     };
   }

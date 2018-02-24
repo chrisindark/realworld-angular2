@@ -13,35 +13,35 @@ export class ArticleService {
   constructor(private apiService: ApiService) {
   }
 
-  query(config: ArticleListConfig): Observable<{ articles: Article[], articlesCount: number }> {
-    // Convert any filters over to Angular's URLSearchParams
-    const params: HttpParams = new HttpParams();
+  query(config: ArticleListConfig): Observable<{ articles: Article[], count: number }> {
+    let params: HttpParams = new HttpParams();
 
     Object.keys(config.filters)
       .forEach((key) => {
-        params.set(key, config.filters[key]);
+        params = params.append(key, config.filters[key]);
       });
 
     return this.apiService
       .get(
-        '/articles' + ((config.type === 'feed') ? '/feed' : ''),
+        ((config.type === 'feed') ? '/feed' : '') + '/articles/',
         params
       ).map(data => data);
   }
 
   get(slug): Observable<Article> {
-    return this.apiService.get('/articles/' + slug)
+    return this.apiService.get('/articles/' + slug + '/')
       .map(data => data.article);
   }
 
   remove(slug) {
-    return this.apiService.remove('/articles/' + slug);
+    return this.apiService.remove('/articles/' + slug + '/');
   }
 
   save(article): Observable<Article> {
     // If we're updating an existing article
     if (article.slug) {
-      return this.apiService.put('/articles/' + article.slug, {article: article})
+      return this.apiService.put('/articles/' + article.slug + '/',
+        { article: article })
         .map(data => data.article);
       // Otherwise, create a new article
     } else {
@@ -51,11 +51,11 @@ export class ArticleService {
   }
 
   favorite(slug): Observable<Article> {
-    return this.apiService.post('/articles/' + slug + '/favorite');
+    return this.apiService.post('/articles/' + slug + '/favorite/');
   }
 
   unfavorite(slug): Observable<Article> {
-    return this.apiService.remove('/articles/' + slug + '/favorite');
+    return this.apiService.remove('/articles/' + slug + '/favorite/');
   }
 
 }

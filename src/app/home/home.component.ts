@@ -28,11 +28,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     private router: Router,
     private tagsService: TagsService,
     private userService: UserService
-  ) {}
+  ) {
+    this.isAuthenticated = false;
+  }
 
   ngOnInit() {
     this.tagsLoaded = false;
-    this.isAuthenticated = false;
     this.isLoaded = false;
 
     this.userService.isAuthenticated

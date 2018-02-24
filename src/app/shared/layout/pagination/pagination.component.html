@@ -1,0 +1,17 @@
+<nav aria-label="page navigation">
+  <ul class="pagination">
+    <li class="page-item" [ngClass]="{disabled: disablePrev()}">
+      <a class="page-link" href="javascript:void(0);"
+         (click)="previous()">Previous</a>
+    </li>
+    <li class="page-item"
+        [ngClass]="{'active': p === currentPage}"
+        *ngFor="let p of range()">
+      <a class="page-link" href="javascript:void(0);"
+         (click)="selectPage(p)">{{ p }}</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled: disableNext()}">
+      <a class="page-link" (click)="next()" href="javascript:void(0)">Next</a>
+    </li>
+  </ul>
+</nav>

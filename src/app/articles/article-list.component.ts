@@ -10,18 +10,21 @@ import { ArticleService } from '../shared';
 })
 
 export class ArticleListComponent implements OnInit {
-  query: ArticleListConfig;
-  results: Article[];
   loading: boolean;
+
+  query: ArticleListConfig;
+  articleObjects: Article[];
+
+  totalCount: number;
   currentPage: number;
-  // totalPages: Array<number> = [1];
-  totalPages: number;
+  maxVisible: number;
 
   constructor(private articleService: ArticleService) { }
 
   @Input() limit: number;
   @Input() set config(config: ArticleListConfig) {
     if (config) {
+      // console.log(config);
       this.query = config;
       this.currentPage = 1;
       this.runQuery();
@@ -31,6 +34,7 @@ export class ArticleListComponent implements OnInit {
   ngOnInit() {
     this.loading = false;
     this.currentPage = 1;
+    this.maxVisible = 5;
   }
 
   setPageTo(pageNumber) {
@@ -40,8 +44,8 @@ export class ArticleListComponent implements OnInit {
 
   runQuery() {
     this.loading = true;
-    this.results = [];
 
+    this.articleObjects = [];
     // Create limit and offset filter (if necessary)
     if (this.limit) {
       this.query.filters.limit = this.limit;
@@ -51,13 +55,8 @@ export class ArticleListComponent implements OnInit {
     this.articleService.query(this.query)
       .subscribe(data => {
         this.loading = false;
-        this.results = data.articles;
-
-        // this.totalPages = Array.from(
-        //   new Array(Math.ceil(data.articlesCount / this.limit)), (val, index) => {
-        //     return index + 1;
-        //   });
-        this.totalPages = 0;
+        this.articleObjects = data.articles;
+        this.totalCount = data.count;
       });
   }
 

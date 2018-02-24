@@ -15,7 +15,9 @@ export class ProfileService {
 
   get(username: string): Observable<Profile> {
     return this.apiService.get('/profiles/' + username)
-      .map((data: {profile: Profile}) => data.profile);
+      .map((data: {profile: Profile}) => {
+        return data.profile;
+      });
   }
 
   follow(username: string): Observable<Profile> {

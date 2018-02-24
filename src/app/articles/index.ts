@@ -3,4 +3,4 @@ export * from './article.component';
 export * from './article-comment.component';
 export * from './article.module';
 export * from './article-resolver.service';
-
+export * from './article-meta.component';

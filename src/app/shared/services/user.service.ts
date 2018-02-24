@@ -18,6 +18,9 @@ export class UserService {
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
+  private authObjectKey = 'AuthObject';
+  private jwtKey = 'jwtToken';
+
   constructor (
     private apiService: ApiService,
     private jwtService: JwtService
@@ -27,7 +30,7 @@ export class UserService {
   // This runs once on application startup.
   populate() {
     // If JWT detected, attempt to get & store user's info
-    if (this.jwtService.getToken()) {
+    if (this.jwtService.getToken(this.jwtKey)) {
       this.apiService.get('/users')
         .subscribe(
           data => this.setAuth(data.user),
@@ -41,7 +44,8 @@ export class UserService {
 
   setAuth(user: User) {
     // Save JWT sent from server in localstorage
-    this.jwtService.saveToken(user.token);
+    this.jwtService.setToken(user.token, this.jwtKey);
+    this.jwtService.setToken(user, this.authObjectKey);
     // Set current user data into observable
     this.currentUserSubject.next(user);
     // Set isAuthenticated to true
@@ -50,7 +54,8 @@ export class UserService {
 
   purgeAuth() {
     // Remove JWT from localstorage
-    this.jwtService.destroyToken();
+    this.jwtService.removeToken(this.jwtKey);
+    this.jwtService.removeToken(this.authObjectKey);
     // Set current user to an empty object
     this.currentUserSubject.next(new User());
     // Set auth status to false
@@ -73,7 +78,7 @@ export class UserService {
   // Update the user on the server (email, pass, etc)
   update(user): Observable<User> {
     return this.apiService
-      .put('/users', { user })
+      .put('/users', user)
       .map(data => {
         // Update the currentUser observable
         this.currentUserSubject.next(data.user);

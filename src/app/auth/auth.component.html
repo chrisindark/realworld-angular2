@@ -3,7 +3,7 @@
   <div class="container page">
     <div class="row">
 
-      <div class="col-md-6 offset-md-3 col-xs-12">
+      <div class="col-md-6 col-md-offset-3 col-xs-12">
         <h1 class="text-xs-center">{{ submitText }}</h1>
         <p class="text-xs-center">
           <a [routerLink]="['/login']" *ngIf="authType === 'register'">Have an account?</a>
@@ -35,10 +35,12 @@
                      type="password" />
             </fieldset>
 
-            <button class="btn btn-lg btn-primary pull-xs-right"
-                    [disabled]="!authForm.valid" type="submit">
-              {{ submitText }}
-            </button>
+            <div class="form-group">
+              <div class="text-center">
+                <button class="btn btn-lg btn-primary pull-xs-left"
+                        [disabled]="!authForm.valid" type="submit">{{ submitText }}</button>
+              </div>
+            </div>
           </fieldset>
         </form>
       </div>
